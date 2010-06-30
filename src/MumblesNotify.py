@@ -192,17 +192,17 @@ class MumblesNotify(object):
 			node_a = xml_item.getElementsByTagName(outerNodeName)
 			if node_a:
 				node = xml_item.getElementsByTagName(outerNodeName)[0]
-				if node.nodeType == Node.ELEMENT_NODE:
-					if type(xml_config[node.nodeName]) is dict:
-						self.process_xml_options(xml_config[node.nodeName], node)
+			if node.nodeType == Node.ELEMENT_NODE:
+				if type(xml_config[node.nodeName]) is dict:
+					self.process_xml_options(xml_config[node.nodeName], node)
+				else:
+					if xml_config[node.nodeName][1] == 'int':
+						try:
+							self.options.set_option(CONFIG_MT, xml_config[node.nodeName][0], int(node.firstChild.nodeValue))
+						except:
+							raise Exception("Warning: Invalid value for option %s. Expected integer." %(xml_config[node.nodeName][0]))
 					else:
-						if xml_config[node.nodeName][1] == 'int':
-							try:
-								self.options.set_option(CONFIG_MT, xml_config[node.nodeName][0], int(node.firstChild.nodeValue))
-							except:
-								raise Exception("Warning: Invalid value for option %s. Expected integer." %(xml_config[node.nodeName][0]))
-						else:
-							self.options.set_option(CONFIG_MT, xml_config[node.nodeName][0], node.firstChild.nodeValue)
+						self.options.set_option(CONFIG_MT, xml_config[node.nodeName][0], node.firstChild.nodeValue)
 
 
 	def add_options_from_config(self, theme_name, theme_xml):
@@ -264,7 +264,7 @@ class MumblesNotify(object):
 
 		cr = widget.window.cairo_create()
 
-        # restrict to window area
+        	# restrict to window area
 		cr.rectangle(event.area.x, event.area.y, event.area.width, event.area.height)
 		cr.clip()
 
@@ -311,7 +311,7 @@ class MumblesNotify(object):
 			background_image = None
 			background_mask = os.path.join(THEMES_DIR, 'default', 'bgmask.svg')
 
-		pixbuf= None
+			pixbuf = None
 		if (background_image and os.path.exists(background_image)):
 			pixbuf = gtk.gdk.pixbuf_new_from_file(background_image)
 
@@ -329,7 +329,7 @@ class MumblesNotify(object):
 			# create again...
 			if background_image is not None:
 				cr = widget.window.cairo_create()
-
+			
 		if pixbuf:
 			if background_mask is None:
 				cr = widget.window.cairo_create()
@@ -349,7 +349,7 @@ class MumblesNotify(object):
 			if not new_image: print 'Warning: Out of memory?'
 			else: plugin_image = new_image
 			widget.window.draw_pixbuf(None, plugin_image, 0, 0, self.options.get_option(CONFIG_MT, 'icon_x_pos'), self.options.get_option(CONFIG_MT, 'icon_y_pos'))
-			
+
 
 		cr.reset_clip()
 
@@ -434,25 +434,32 @@ class MumblesNotify(object):
 
 		return False
 
-	def screen_changed(self, widget, old_screen=None):        
+	def screen_changed(self, widget, old_screen=None):
+        
+		# To check if the display supports alpha channels, get the colormap
 		screen = widget.get_screen()
-
-		# check if the widget supports alpha channels
-		if widget.is_composited():
+		try:
 			colormap = screen.get_rgba_colormap()
 			self.__alpha_available = True
-		else:
-			colormap = screen.get_rgb_colormap()
+		except:
+			colormap = None
+
+		if colormap == None:
 			self.__alpha_available = False
-			
-		# Now we have a colormap appropriate for the widget, use it
+			try:
+				colormap = screen.get_rgb_colormap()
+				self.__alpha_available = False
+			except:
+				colormap = None
+
+		# Now we have a colormap appropriate for the screen, use it
 		widget.set_colormap(colormap)
     
 		return False
 
 	def close(self, win):
 		self.close_alert(win)
-
+	
 	def close_timeout(self, win):
 		if not win in self.visible: return
 		self.visible[win] -= 1
@@ -596,8 +603,8 @@ class MumblesNotify(object):
 		#	#win.hide()
 		#	if h_slide: self.close_slide_out(win)
 		#	else: self.destroy(win)
-		# decrease number of active windows
-		self.__n_active -= 1
+			# decrease number of active windows
+			self.__n_active -= 1
 		# slide out or close
 		if h_slide: self.close_slide_out(win)
 		elif fading: self.fade_out(win, fade_duration, fade_steps)
@@ -607,7 +614,7 @@ class MumblesNotify(object):
 		# if number of active windows is back to 0, reset starting point
 		if self.__n_active == 0:
 			self.__n_index = 0
-	
+
 	def close_slide_out(self, win):
 		if win in self.win_placement: del self.win_placement[win]
 		try:
@@ -623,17 +630,17 @@ class MumblesNotify(object):
 			xm = x - xs
 		self.slide_tracking[win] = -1
 		self.smooth_move(win, xm, y, callback=self.destroy, track=-1)
-	
+    
 	def destroy(self, win):
 		win.window.destroy()
 		if win in self.win_placement: del self.win_placement[win]
 		del self.visible[win]
-
+		
 	def replace_alert(self, win, plugin_name, name, message, image=None, click_handler=None):
 		if not win in self.visible: return self.alert(plugin_name, name, message, image, click_handler)
 		win.connect('expose-event', self.expose, name, message, image)
 		self.visible[win] += 1
-
+		
 		# show window for a defined about of time
 		#try: cur_duration = int(self.options.get_option(CONFIG_MN, 'notification_duration'))
 		#except:
@@ -716,7 +723,7 @@ class MumblesNotify(object):
 		gobject.timeout_add(time/steps, self.fade_step_in, win, time, steps, 1, max_alpha)
 
 	def fade_step_in(self, win, time, steps, cur, max_alpha):
-		win.set_opacity(float(cur)/steps*max_alpha/100)
+		#win.set_opacity(float(cur)/steps*max_alpha/100)
 		if cur < steps: gobject.timeout_add(time/steps, self.fade_step_in, win, time, steps, cur+1, max_alpha)
 	
 	def fade_out(self, win, time, steps):
@@ -724,9 +731,10 @@ class MumblesNotify(object):
 		gobject.timeout_add(time/steps, self.fade_step_out, win, time, steps, steps, alpha)
 
 	def fade_step_out(self, win, time, steps, cur, max_alpha):
-		win.set_opacity(float(cur)/steps*max_alpha)
-		if cur > 0: gobject.timeout_add(time/steps, self.fade_step_out, win, time, steps, cur-1, max_alpha)
-		else: self.destroy(win)
+		#win.set_opacity(float(cur)/steps*max_alpha)
+		#if cur > 0: gobject.timeout_add(time/steps, self.fade_step_out, win, time, steps, cur-1, max_alpha)
+		#else: 
+		self.destroy(win)
 	
 	def init_close_timeout(self, win):
 		now = time.time()*1000
@@ -772,7 +780,7 @@ class MumblesNotify(object):
 				if widget in self.visible:
 					replacing = True
 					#print replacing
-
+			
 		# setup window
 		#win = gtk.Window(gtk.WINDOW_TOPLEVEL)
 		win = gtk.Window(gtk.WINDOW_POPUP)
@@ -791,7 +799,7 @@ class MumblesNotify(object):
 				win.connect('button-press-event', self.__click_handlers[plugin_name], plugin_name)
 		except:
 			win.connect('button-press-event', self.clicked)
-		
+
 		#win.connect('enter-notify-event', self.hovered)
 		#win.connect('leave-notify-event', self.unhovered)
 
@@ -801,8 +809,8 @@ class MumblesNotify(object):
 		win.set_skip_pager_hint(True)
 		win.set_accept_focus(False)
 		win.set_keep_above(True)
-		if fading: win.set_opacity(0)
-		else: win.set_opacity(float(cur_alpha)/100)
+		#if fading: win.set_opacity(0)
+		#else: win.set_opacity(float(cur_alpha)/100)
 		win.stick()
 
 		# initialize for the current display
@@ -849,7 +857,7 @@ class MumblesNotify(object):
 		if cur_placement == CONFIG_NOTIFY_PLACEMENT_RIGHT:
 			new_x = (gtk.gdk.screen_width()-self.options.get_option(CONFIG_MT, 'width')-spacing)
 		else:
-			new_x = spacing
+			new_x = spacing 
 		if replacing:
 			null_x, new_y = widget.get_position()
 			
@@ -872,7 +880,7 @@ class MumblesNotify(object):
 				win.move(new_x-width, new_y)
 		else:
 			win.move(new_x, new_y)
-		
+
 
 		# increase number of active notifications
 		n_index = self.__n_index

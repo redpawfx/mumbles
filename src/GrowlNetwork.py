@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 
 # Simple Growl Network Utilities 
 # 	Steve Benz (steve.benz@gmail.com)
