@@ -17,7 +17,8 @@ import sys
 import getopt
 import dbus
 import dbus.service
-from dbus.mainloop.glib import DBusGMainLoop
+#from dbus.mainloop.glib import DBusGMainLoop
+import dbus.glib
 from socket import AF_INET, SOCK_DGRAM, socket
 from getpass import getpass
 
@@ -114,8 +115,9 @@ def main(argv=None):
 		content = args[1]
 
 	if send_local:
-		dbus_loop = DBusGMainLoop()
-		name = dbus.service.BusName (MUMBLES_DBUS_INTERFACE, bus=dbus.SessionBus(mainloop=dbus_loop))
+		#dbus_loop = DBusGMainLoop()
+		#name = dbus.service.BusName (MUMBLES_DBUS_INTERFACE, bus=dbus.SessionBus(mainloop=dbus_loop))
+		name = dbus.service.BusName (MUMBLES_DBUS_INTERFACE, bus=dbus.SessionBus())
 
 		sender = MumblesDBus(name)
 		sender.Notify(title, content)
