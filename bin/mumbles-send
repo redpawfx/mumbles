@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 #
 # THIS FILE IS PART OF THE MUMBLES PROJECT AND IS LICENSED UNDER THE GPL.
 # SEE THE 'COPYING' FILE FOR DETAILS
@@ -22,13 +22,10 @@ from dbus.mainloop.glib import DBusGMainLoop
 from socket import AF_INET, SOCK_DGRAM, socket
 from getpass import getpass
 
-sys.path.append("/usr/share/python-support/mumbles/src/")
-os.environ.setdefault("MUMBLES_PATH", "/usr/share/mumbles/")
-
-from MumblesGlobals import *
-from OptionsHandler import *
-from MumblesDBus import *
-from GrowlNetwork import *
+from mumbles.MumblesGlobals import *
+from mumbles.OptionsHandler import *
+from mumbles.MumblesDBus import *
+from mumbles.GrowlNetwork import *
 
 MUMBLES_SEND_ID = "mumbles-send"
 
