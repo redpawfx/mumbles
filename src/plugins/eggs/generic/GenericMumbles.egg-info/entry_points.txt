@@ -1,0 +1,4 @@
+
+    [mumbles.plugins]
+    GenericMumbles = generic:GenericMumbles
+    

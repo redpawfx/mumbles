@@ -1,0 +1,7 @@
+setup.py
+GaimMumbles.egg-info/PKG-INFO
+GaimMumbles.egg-info/SOURCES.txt
+GaimMumbles.egg-info/dependency_links.txt
+GaimMumbles.egg-info/entry_points.txt
+GaimMumbles.egg-info/top_level.txt
+src/__init__.py

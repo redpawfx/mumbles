@@ -1,0 +1,8 @@
+setup.py
+GrowlMumbles.egg-info/PKG-INFO
+GrowlMumbles.egg-info/SOURCES.txt
+GrowlMumbles.egg-info/dependency_links.txt
+GrowlMumbles.egg-info/entry_points.txt
+GrowlMumbles.egg-info/top_level.txt
+dist/GrowlMumbles-0.1-py2.4.egg
+src/__init__.py

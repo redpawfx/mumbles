@@ -1,0 +1,7 @@
+setup.py
+PidginMumbles.egg-info/PKG-INFO
+PidginMumbles.egg-info/SOURCES.txt
+PidginMumbles.egg-info/dependency_links.txt
+PidginMumbles.egg-info/entry_points.txt
+PidginMumbles.egg-info/top_level.txt
+src/__init__.py

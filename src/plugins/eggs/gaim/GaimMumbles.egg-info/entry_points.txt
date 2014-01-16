@@ -1,0 +1,4 @@
+
+    [mumbles.plugins]
+    Gaim = gaim:GaimMumbles
+    

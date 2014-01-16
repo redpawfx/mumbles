@@ -1,0 +1,4 @@
+
+    [mumbles.plugins]
+    Firefox = firefox:FirefoxMumbles
+    

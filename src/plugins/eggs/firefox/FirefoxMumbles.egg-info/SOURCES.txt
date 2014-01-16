@@ -1,0 +1,8 @@
+README
+setup.py
+FirefoxMumbles.egg-info/PKG-INFO
+FirefoxMumbles.egg-info/SOURCES.txt
+FirefoxMumbles.egg-info/dependency_links.txt
+FirefoxMumbles.egg-info/entry_points.txt
+FirefoxMumbles.egg-info/top_level.txt
+src/__init__.py

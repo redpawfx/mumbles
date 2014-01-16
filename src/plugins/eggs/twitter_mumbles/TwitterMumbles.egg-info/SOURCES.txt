@@ -1,0 +1,7 @@
+setup.py
+TwitterMumbles.egg-info/PKG-INFO
+TwitterMumbles.egg-info/SOURCES.txt
+TwitterMumbles.egg-info/dependency_links.txt
+TwitterMumbles.egg-info/entry_points.txt
+TwitterMumbles.egg-info/top_level.txt
+src/__init__.py

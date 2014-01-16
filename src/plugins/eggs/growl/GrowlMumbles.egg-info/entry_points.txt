@@ -1,0 +1,4 @@
+
+    [mumbles.plugins]
+    GrowlMumbles = growl:GrowlMumbles
+    

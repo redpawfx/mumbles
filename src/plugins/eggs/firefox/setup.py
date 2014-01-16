@@ -2,7 +2,7 @@
 # THIS FILE IS PART OF THE MUMBLES PROJECT AND IS LICENSED UNDER THE GPL.
 # SEE THE 'COPYING' FILE FOR DETAILS
 #
-# Pidgin Mumbles Plugin
+# Firefox Mumbles Plugin
 #
 #------------------------------------------------------------------------
 
@@ -11,23 +11,23 @@ import sys, os
 from shutil import copy
 
 __author__ = 'dot_j <dot_j@mumbles-project.org>'
-__doc__ = 'A simple pidgin plugin for mumbles'
+__doc__ = 'A simple firefox download completion plugin for mumbles. Requires Firefox DBus Notification Extension (See README)'
 __version__ = '0.1'
 
 setup(
-    name='PidginMumbles',
+    name='FirefoxMumbles',
     version=__version__,
     description=__doc__,
     author=__author__,
-    packages=['pidgin'],
-    package_dir={'pidgin':'src'},
-    package_data={'':['themes/pidgin.png', 'themes/irc.png']},
+    packages=['firefox'],
+    package_dir={'firefox':'src'},
+    package_data={'':['themes/firefox.png']},
     entry_points='''
     [mumbles.plugins]
-    Pidgin = pidgin:PidginMumbles
+    Firefox = firefox:FirefoxMumbles
     '''
 )
 
 # copy egg file to plugin directory
-copy("dist/PidginMumbles-%s-py%d.%d.egg" %(__version__,sys.version_info[0],sys.version_info[1]), "../../")
+copy("dist/FirefoxMumbles-%s-py%d.%d.egg" %(__version__,sys.version_info[0],sys.version_info[1]), "../../")
 

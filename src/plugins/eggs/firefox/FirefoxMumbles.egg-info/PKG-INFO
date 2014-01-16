@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: FirefoxMumbles
+Version: 0.1
+Summary: A simple firefox download completion plugin for mumbles. Requires Firefox DBus Notification Extension (See README)
+Home-page: UNKNOWN
+Author: dot_j <dot_j@mumbles-project.org>
+Author-email: UNKNOWN
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN

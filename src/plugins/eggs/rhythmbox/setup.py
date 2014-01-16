@@ -15,17 +15,17 @@ __doc__ = 'A simple rhythmbox plugin for mumbles'
 __version__ = '0.1'
 
 setup(
-	name='RhythmboxMumbles',
-	version=__version__,
-	description=__doc__,
-	author=__author__,
-	packages=['rhythmboxmumbles'],
-	package_dir={'rhythmboxmumbles':'src'},
-	package_data={'':['themes/rhythmbox.xpm']},
-	entry_points='''
-	[mumbles.plugins]
-	RhythmboxMumbles = rhythmboxmumbles:RhythmboxMumbles
-	'''
+    name='RhythmboxMumbles',
+    version=__version__,
+    description=__doc__,
+    author=__author__,
+    packages=['rhythmbox'],
+    package_dir={'rhythmbox':'src'},
+    package_data={'':['themes/rhythmbox.xpm']},
+    entry_points='''
+    [mumbles.plugins]
+    Rhythmbox = rhythmbox:RhythmboxMumbles
+    '''
 )
 
 # copy egg file to plugin directory

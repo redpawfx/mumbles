@@ -1,0 +1,7 @@
+setup.py
+GenericMumbles.egg-info/PKG-INFO
+GenericMumbles.egg-info/SOURCES.txt
+GenericMumbles.egg-info/dependency_links.txt
+GenericMumbles.egg-info/entry_points.txt
+GenericMumbles.egg-info/top_level.txt
+src/__init__.py
