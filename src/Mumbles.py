@@ -48,7 +48,8 @@ class Usage(Exception):
         else:
             self.msg = \
                 app+": Desktop notifications for the Gnome desktop.\n" \
-                "Copyright (C) 2007 dot_j <dot_j@mumbles-project.org>\n\n" \
+                "Copyright (C) 2007 dot_j <dot_j@mumbles-project.org>\n" \
+				"Copyright (C) 2014 johnc <redpawfx@gmail.com>\n\n" \
                 "Usage: mumbles [options]\n\n" \
                 "-h, --help\n" \
                 "\tPrint a summary of the command-line usage of "+app+".\n" \
