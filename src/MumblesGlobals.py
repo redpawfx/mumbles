@@ -7,14 +7,25 @@
 #------------------------------------------------------------------------
 
 import os
+import sys
 
 # If MUMBLES_PATH is not set, that is, Mumbles is running locally,
 # use paths relative to the current running directory instead of /usr ones.
 data_path = os.getenv("MUMBLES_PATH")
 if not data_path:
-	data_path = os.path.dirname(os.path.abspath(__file__))
+    data_path = os.path.dirname(os.path.abspath(__file__))
 
-PLUGIN_DIR = os.path.join(data_path, 'plugins')
+if (sys.version_info[1] == 7):
+	PLUGIN_DIR = os.path.join(data_path, 'plugins/2.7_plugs')
+elif (sys.version_info[1] == 6):
+	PLUGIN_DIR = os.path.join(data_path, 'plugins/2.6_plugs')
+elif(sys.version_info[1] ==  5 ):
+    PLUGIN_DIR = os.path.join(data_path, 'plugins/2.5_plugs')
+else:
+    PLUGIN_DIR = os.path.join(data_path, 'plugins/2.4_plugs')
+
+print "using plugin dir:"+PLUGIN_DIR
+
 PLUGIN_DIR_USER = os.path.expanduser('~/.mumbles/plugins/')
 THEMES_DIR = os.path.join(data_path, 'themes')
 THEMES_DIR_USER = os.path.expanduser('~/.mumbles/themes/')
