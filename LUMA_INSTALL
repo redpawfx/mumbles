@@ -1,0 +1,8 @@
+Mumbles should not be installed the normal luma way using pip. Mumbles
+relies on pygtk, which is a complete pain in the ass to compile, but
+comes with the fedora system python, so our compromise is to install
+Mumbles using the system python (which places its scripts into /usr/bin).
+
+To install Mumbles, puppet should be setup to run:
+   ``sudo /usr/bin/python setup.py install``
+from this source directory.
