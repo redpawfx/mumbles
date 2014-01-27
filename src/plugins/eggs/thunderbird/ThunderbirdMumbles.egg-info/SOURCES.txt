@@ -1,0 +1,8 @@
+README
+setup.py
+ThunderbirdMumbles.egg-info/PKG-INFO
+ThunderbirdMumbles.egg-info/SOURCES.txt
+ThunderbirdMumbles.egg-info/dependency_links.txt
+ThunderbirdMumbles.egg-info/entry_points.txt
+ThunderbirdMumbles.egg-info/top_level.txt
+src/__init__.py

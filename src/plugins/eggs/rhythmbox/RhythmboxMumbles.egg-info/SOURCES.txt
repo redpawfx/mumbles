@@ -1,0 +1,7 @@
+setup.py
+RhythmboxMumbles.egg-info/PKG-INFO
+RhythmboxMumbles.egg-info/SOURCES.txt
+RhythmboxMumbles.egg-info/dependency_links.txt
+RhythmboxMumbles.egg-info/entry_points.txt
+RhythmboxMumbles.egg-info/top_level.txt
+src/__init__.py

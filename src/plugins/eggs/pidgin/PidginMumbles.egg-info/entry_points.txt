@@ -1,0 +1,4 @@
+
+    [mumbles.plugins]
+    Pidgin = pidgin:PidginMumbles
+    

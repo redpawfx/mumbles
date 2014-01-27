@@ -1,0 +1,4 @@
+
+    [mumbles.plugins]
+    Rhythmbox = rhythmbox:RhythmboxMumbles
+    

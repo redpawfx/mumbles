@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#
+# THIS FILE IS PART OF THE MUMBLES PROJECT AND IS LICENSED UNDER THE GPL.
+# SEE THE 'COPYING' FILE FOR DETAILS
+#
+# Mumbles Launcher Script
+#
+#------------------------------------------------------------------------
+import os
+import sys
+
+from mumbles.MumblesGlobals import *
+from mumbles.Mumbles import *
+
+mumbles = Mumbles()
+sys.exit(mumbles.main())
