@@ -242,9 +242,16 @@ class MumblesNotify(object):
 
 	def expose(self, widget, event, title, message, image):
 
-		textLen = len(message)
+		titleLen = len(title)
+		messageLen = len(message)
 
-		height =  ((textLen/30)*22)
+		width = titleLen*10
+		eventWidth = event.area.width
+
+		if (width < eventWidth):
+			width = eventWidth
+
+		height =  ((messageLen/30)*22)
 		eventHeight = event.area.height
 
 		if (height  < eventHeight):
@@ -255,7 +262,7 @@ class MumblesNotify(object):
 
 		# restrict to window area
 		#cr.rectangle(event.area.x, event.area.y, event.area.width, event.area.height)
-		cr.rectangle(event.area.x, event.area.y, event.area.width,height)
+		cr.rectangle(event.area.x, event.area.y, width,height)
 		cr.clip()
 
 		if self.__alpha_available:
@@ -281,7 +288,7 @@ class MumblesNotify(object):
 			cr.paint()
 		else:
 			#cr.rectangle(0, 0, self.options.get_option(CONFIG_MT, 'width'), self.options.get_option(CONFIG_MT, 'height'))
-			cr.rectangle(0, 0, self.options.get_option(CONFIG_MT, 'width'), height)
+			cr.rectangle(0, 0, width, height)
 			cr.fill()
 
 		# add plugin image
@@ -297,7 +304,8 @@ class MumblesNotify(object):
 		cr.save()
 
 		# add the title
-		text_title_width = self.options.get_option(CONFIG_MT, 'text_title_width')
+		#text_title_width = self.options.get_option(CONFIG_MT, 'text_title_width')
+		text_title_width = width
 		text_title_height = self.options.get_option(CONFIG_MT, 'text_title_height')
 		text_title_padding_left = self.options.get_option(CONFIG_MT, 'text_title_padding_left')
 		text_title_padding_right = self.options.get_option(CONFIG_MT, 'text_title_padding_right')
@@ -332,8 +340,9 @@ class MumblesNotify(object):
 		cr.restore()		
 
 		# add the message
-		text_message_width = self.options.get_option(CONFIG_MT, 'text_message_width')
+		#text_message_width = self.options.get_option(CONFIG_MT, 'text_message_width')
 		#text_message_height = self.options.get_option(CONFIG_MT, 'text_message_height')
+		text_message_width = width
 		text_message_height = height
 		text_message_padding_left = self.options.get_option(CONFIG_MT, 'text_message_padding_left')
 		text_message_padding_right = self.options.get_option(CONFIG_MT, 'text_message_padding_right')
@@ -414,17 +423,21 @@ class MumblesNotify(object):
 			self.__n_index = 0
 
     
-	def alert(self, plugin_name, name, message, image=None):
-	
-		textLen = len(message)
+	def alert(self, plugin_name, title, message, image=None):
 
-		height =  ((textLen/30)*22)
+		titleLen = len(title)
+		width = titleLen*10
+		configWidth = self.options.get_option(CONFIG_MT, 'width')
 
+		if (width < configWidth):
+			width = configWidth
+
+		messageLen = len(message)
+		height =  ((messageLen/30)*22)
 		configHeight = self.options.get_option(CONFIG_MT, 'height')
 
 		if (height < configHeight):
 			height = configHeight
-
 
 		# setup window
 		win = gtk.Window(gtk.WINDOW_TOPLEVEL)
@@ -433,7 +446,7 @@ class MumblesNotify(object):
 		win.add_events(gtk.gdk.BUTTON_PRESS_MASK)
 
 		win.connect('delete-event', gtk.main_quit)
-		win.connect('expose-event', self.expose, name, message, image)
+		win.connect('expose-event', self.expose, title, message, image)
 		win.connect('screen-changed', self.screen_changed)
 
 		try:
@@ -452,7 +465,7 @@ class MumblesNotify(object):
 		# initialize for the current display
 		self.screen_changed(win)
 		#win.resize( self.options.get_option(CONFIG_MT, 'width'), self.options.get_option(CONFIG_MT, 'height'))
-		win.resize( self.options.get_option(CONFIG_MT, 'width'), height)
+		win.resize( width, height)
 
 		# adjust window position by direction and placement
 		# preferences and how many notifications are active
