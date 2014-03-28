@@ -1,5 +1,5 @@
 <mumbles-theme name='default' version='1.0'>
-    <width>250</width>
+    <width>350</width>
     <height>80</height>
     <spacing>10</spacing>
     <icon>
@@ -11,9 +11,9 @@
             <font>
                 <family>Free Sans</family>
                 <color>#fff</color>
-                <size>12</size>
+                <size>13</size>
             </font>
-            <width>250</width>
+            <width>350</width>
             <height>20</height>
             <padding>
                 <left>15</left>
@@ -25,10 +25,10 @@
         <message>
             <font>
                 <family>Free Sans</family>
-                <color>#fff</color>
+                <color>#8c8</color>
                 <size>8</size>
             </font>
-            <width>250</width>
+            <width>350</width>
             <height>130</height>
             <padding>
                 <left>40</left>

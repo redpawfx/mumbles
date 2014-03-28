@@ -242,16 +242,18 @@ class MumblesNotify(object):
 
 	def expose(self, widget, event, title, message, image):
 
+		print "expose"
 		titleLen = len(title)
 		messageLen = len(message)
 
-		width = titleLen*50
+		width = titleLen*11
 		eventWidth = event.area.width
 
 		if (width < eventWidth):
 			width = eventWidth
 
-		height =  ((messageLen/30)*22)
+		height =  (messageLen/width)
+		height += 110
 		eventHeight = event.area.height
 
 		if (height  < eventHeight):
@@ -292,8 +294,8 @@ class MumblesNotify(object):
 			cr.fill()
 
 		# add plugin image
-		print "image"
-		print image
+		#print "image"
+		#print image
 		if not image:
 			image = os.path.join(UI_DIR, 'mumblesLuma.png')
 		plugin_image = gtk.gdk.pixbuf_new_from_file(image)
@@ -325,6 +327,7 @@ class MumblesNotify(object):
 		p_fdesc.set_family_static(self.options.get_option(CONFIG_MT, 'text_title_font'))
 		p_fdesc.set_size(self.options.get_option(CONFIG_MT, 'text_title_size') * pango.SCALE)
 		p_fdesc.set_weight(pango.WEIGHT_BOLD)
+		p_layout_title.set_alignment(pango.ALIGN_CENTER)
 
 		p_layout_title.set_font_description(p_fdesc)
 		p_layout_title.set_text(title)
@@ -350,7 +353,7 @@ class MumblesNotify(object):
 		text_message_padding_lower = self.options.get_option(CONFIG_MT, 'text_message_padding_lower')
 
 		left_edge = (0 + text_message_padding_left)
-		upper_edge = (text_message_padding_upper + text_title_height) # here start the top edge at the bottom of the title
+		upper_edge = (text_message_padding_upper + text_title_height+5) # here start the top edge at the bottom of the title
 		right_edge = (text_message_width - text_message_padding_right)
 		lower_edge = (text_message_height - text_message_padding_lower)
 
@@ -425,15 +428,17 @@ class MumblesNotify(object):
     
 	def alert(self, plugin_name, title, message, image=None):
 
+		print "alert"
 		titleLen = len(title)
-		width = titleLen*10
+		width = titleLen*11
 		configWidth = self.options.get_option(CONFIG_MT, 'width')
 
 		if (width < configWidth):
 			width = configWidth
 
 		messageLen = len(message)
-		height =  ((messageLen/30)*22)
+		height =  (messageLen/width)
+		height += 110
 		configHeight = self.options.get_option(CONFIG_MT, 'height')
 
 		if (height < configHeight):
@@ -506,7 +511,7 @@ class MumblesNotify(object):
 			new_x = (gtk.gdk.screen_width()-self.options.get_option(CONFIG_MT, 'width')-spacing)
 		else:
 			new_x = spacing 
-		win.move(new_x-500, new_y)
+		win.move(new_x, new_y)
 
 		# increase number of active notifications
 		self.__n_index += 1
