@@ -245,7 +245,7 @@ class MumblesNotify(object):
 		titleLen = len(title)
 		messageLen = len(message)
 
-		width = titleLen*10
+		width = titleLen*50
 		eventWidth = event.area.width
 
 		if (width < eventWidth):
@@ -295,7 +295,7 @@ class MumblesNotify(object):
 		print "image"
 		print image
 		if not image:
-			image = os.path.join(UI_DIR, 'mumbles.png')
+			image = os.path.join(UI_DIR, 'mumblesLuma.png')
 		plugin_image = gtk.gdk.pixbuf_new_from_file(image)
 		if plugin_image:
 			widget.window.draw_pixbuf(None, plugin_image, 0, 0, self.options.get_option(CONFIG_MT, 'icon_x_pos'), self.options.get_option(CONFIG_MT, 'icon_y_pos'))
@@ -506,7 +506,7 @@ class MumblesNotify(object):
 			new_x = (gtk.gdk.screen_width()-self.options.get_option(CONFIG_MT, 'width')-spacing)
 		else:
 			new_x = spacing 
-		win.move(new_x, new_y)
+		win.move(new_x-500, new_y)
 
 		# increase number of active notifications
 		self.__n_index += 1
